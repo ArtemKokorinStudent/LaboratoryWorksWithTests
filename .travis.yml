@@ -1,4 +1,5 @@
 language: generic
+compiler: clang
 os:
 - osx
 - linux
