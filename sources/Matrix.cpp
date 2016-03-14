@@ -6,7 +6,7 @@
 
 Matrix::Matrix(const Matrix &matrix) : m_rows(matrix.m_rows), m_columns(matrix.m_columns)
 {
-    setElements(matrix.m_elements);
+    fill(matrix.m_elements);
 }
 
 Matrix::Matrix(unsigned int rows, unsigned int columns) : m_rows(rows), m_columns(columns)
