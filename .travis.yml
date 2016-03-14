@@ -1,4 +1,4 @@
-language: generic
+language: cpp
 compiler: clang
 os:
 - osx
