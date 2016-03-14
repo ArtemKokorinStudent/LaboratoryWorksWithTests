@@ -4,7 +4,7 @@ set(PROJECT Matrix)
 
 project (${PROJECT})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 option(TESTS_FOR_${PROJECT} "Include tests for project" ON)
 
