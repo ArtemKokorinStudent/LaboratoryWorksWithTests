@@ -76,7 +76,9 @@ bool Matrix::fill(const std::string filePath)
     if ( input.is_open() ) {
         for (unsigned int i = 0; i < m_rows; ++i) {
             for (unsigned int j = 0; j < m_columns; ++j) {
-                input >> m_elements[i][j];
+                if ( !(input >> m_elements[i][j]) ) {
+                    throw "exception in fill matrix";
+                }
             }
         }
     }
