@@ -3,4 +3,4 @@ compiler:
 os:
 - linux
 - osx
-script: cd build && cmake ../ && make
+script: mkdir build && cd build && cmake ../ && make
