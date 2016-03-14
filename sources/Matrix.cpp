@@ -23,11 +23,11 @@ Matrix::Matrix(unsigned int rows, unsigned int columns, int **elements) : m_rows
 
 void Matrix::fill(int **elements)
 {
-    m_elemenets = new int *[m_columns];
+    m_elements = new int *[m_columns];
     for (unsigned int i = 0; i < m_columns; ++i) {
-        m_elemenets[i] = new int[m_rows];
+        m_elements[i] = new int[m_rows];
         for (unsigned int j = 0; j < m_rows; ++j) {
-            m_elemenets[i][j] = elements ? elements[i][j] : 0;
+            m_elements[i][j] = elements ? elements[i][j] : 0;
         }
     }
 }
@@ -37,7 +37,7 @@ Matrix & Matrix::operator=(const Matrix &matrix)
     if ( this != &matrix ) {
         Matrix(matrix).swap(*this);
     }
-    
+
     return *this;
 }
 
@@ -53,7 +53,7 @@ Matrix::~Matrix()
     for (unsigned int i = 0; i < m_rows; ++i) {
         delete [] m_elements[i];
     }
-    
+
     delete [] m_elements;
 }
 
@@ -71,7 +71,7 @@ bool Matrix::fill(const std::string filePath)
 {
     std::ifstream input;
     input.open(filePath);
-    
+
     bool isSucess = true;
     if ( input.is_open() ) {
         for (unsigned int i = 0; i < m_rows; ++i) {
@@ -83,9 +83,9 @@ bool Matrix::fill(const std::string filePath)
     else {
         isSucess = false;
     }
-    
+
     input.close();
-    
+
     return isSucess;
 }
 
@@ -94,22 +94,22 @@ const int *Matrix::operator[](unsigned int index) const
     if ( index >= m_rows ) {
         throw std::invalid_argument("index goes abroad");
     }
-    
+
     return m_elements[index];
 }
 
 Matrix Matrix::operator *(const Matrix &matrix) const
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
-    
+
     if ( m_columns != matrix.m_rows ) {
         throw std::invalid_argument("matrix sizes do not match");
     }
-    
+
     unsigned int n = m_rows;
     unsigned int m = matrix.m_columns;
     unsigned int s = m_columns;
-    
+
     int **elements = new int *[n];
     for (unsigned int i = 0; i < n; ++i) {
         elements[i] = new int[m];
@@ -121,7 +121,7 @@ Matrix Matrix::operator *(const Matrix &matrix) const
             elements[i][j] = value;
         }
     }
-    
+
     return Matrix(n, m, elements);
 }
 
@@ -129,14 +129,14 @@ Matrix Matrix::operator *(const Matrix &matrix) const
 Matrix Matrix::operator +(const Matrix &matrix) const
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
-    
+
     if ( m_rows != matrix.m_rows || m_columns != matrix.m_columns ) {
         throw std::invalid_argument("matrix sizes do not match");
     }
-    
+
     unsigned int n = m_rows;
     unsigned int m = m_columns;
-    
+
     int **data = new int *[n];
     for (unsigned int i = 0; i < n; ++i) {
         data[i] = new int[m];
@@ -144,18 +144,18 @@ Matrix Matrix::operator +(const Matrix &matrix) const
             data[i][j] = m_elements[i][j] + matrix.m_elements[i][j];
         }
     }
-    
+
     return Matrix(n, m, data);
 }
 
 bool Matrix::operator==(const Matrix &matrix) const
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
-    
+
     if ( m_rows != matrix.m_rows || m_columns != matrix.m_columns ) {
         return false;
     }
-    
+
     for (unsigned int i = 0; i < m_rows; ++i) {
         for (unsigned int j = 0; j < m_columns; ++j) {
             if ( m_elements[i][j] != matrix.m_elements[i][j] ) {
@@ -163,14 +163,14 @@ bool Matrix::operator==(const Matrix &matrix) const
             }
         }
     }
-    
+
     return true;
 }
 
 void Matrix::show() const
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
-    
+
     std::cout << m_rows << " * " << m_columns << std::endl;
     for (unsigned int i = 0; i < m_rows; ++i) {
         for (unsigned int j = 0; j < m_columns; ++j) {
