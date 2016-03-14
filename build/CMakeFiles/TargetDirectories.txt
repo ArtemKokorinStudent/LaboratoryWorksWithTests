@@ -1,0 +1,3 @@
+/Users/simplydesigner/Desktop/Matrix/build/tests/CMakeFiles/Tests.dir
+/Users/simplydesigner/Desktop/Matrix/build/tests/CMakeFiles/github_designerror_cpmcatch_origin_master.dir
+/Users/simplydesigner/Desktop/Matrix/build/CMakeFiles/Matrix.dir
