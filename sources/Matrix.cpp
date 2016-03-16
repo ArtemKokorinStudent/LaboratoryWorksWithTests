@@ -142,7 +142,7 @@ Matrix Matrix::operator +(const Matrix &matrix) const
     for (unsigned int i = 0; i < n; ++i) {
         data[i] = new int[m];
         for (unsigned int j = 0; j < m; ++j) {
-            data[i][j] = m_elements[i][j] + m_elements[i][j];
+            data[i][j] = m_elements[i][j] + matrix.m_elements[i][j];
         }
     }
 
