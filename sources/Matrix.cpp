@@ -11,7 +11,6 @@ Matrix::Matrix(const Matrix &matrix) : m_rows(matrix.m_rows), m_columns(matrix.m
 
 Matrix::Matrix(unsigned int rows, unsigned int columns) : m_rows(rows), m_columns(columns)
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
     fill(nullptr);
 }
 
