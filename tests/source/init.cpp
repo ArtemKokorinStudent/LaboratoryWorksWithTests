@@ -1,5 +1,6 @@
 #include <Matrix.hpp>
 #include <catch.hpp>
+#include <fstream>
 
 SCENARIO("Matrix init", "[init]") {
 
@@ -22,18 +23,35 @@ SCENARIO("Matrix init", "[init]") {
 }
 
 SCENARIO("Matrix >>", "[fill]") {
+	std::ifstream input("A2x2.txt");
 	Matrix A = Matrix(2, 2);
-	REQUIRE( A.fill("A2x2.txt") );
+	REQUIRE( input >> A );
+	REQUIRE( A[0][0] == 1 );
+	REQUIRE( A[0][1] == 1 );
+	REQUIRE( A[1][0] == 2 );
+	REQUIRE( A[1][1] == 2 );
 }
 
 SCENARIO("Matrix +", "[addition]") {
 	Matrix A = Matrix(2, 2);
-	A.fill("A2x2.txt");
+	std::ifstream("A2x2.txt") >> A;
 	Matrix B = Matrix(2, 2);
-	B.fill("B2x2.txt");
+	std::ifstream("B2x2.txt") >> B;
 	Matrix expected = Matrix(2, 2);
-	expected.fill("A+B2x2.txt");
+	std::ifstream("A+B2x2.txt") >> expected;
 
 	Matrix result = A + B;
+	REQUIRE(result == expected);
+}
+
+SCENARIO("Matrix *", "[multiplication]") {
+	Matrix A = Matrix(2, 2);
+	std::ifstream("A2x2.txt") >> A;
+	Matrix B = Matrix(2, 2);
+	std::ifstream("B2x2.txt") >> B;
+	Matrix expected = Matrix(2, 2);
+	std::ifstream("A*B2x2.txt") >> expected;
+
+	Matrix result = A * B;
 	REQUIRE(result == expected);
 }

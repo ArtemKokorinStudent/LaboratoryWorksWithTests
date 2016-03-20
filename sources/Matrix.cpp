@@ -16,7 +16,6 @@ Matrix::Matrix(unsigned int rows, unsigned int columns) : m_rows(rows), m_column
 
 Matrix::Matrix(unsigned int rows, unsigned int columns, int **elements) : m_rows(rows), m_columns(columns)
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
     fill(elements);
 }
 
@@ -66,31 +65,7 @@ unsigned int Matrix::columns() const
     return m_columns;
 }
 
-bool Matrix::fill(const std::string filePath)
-{
-    std::ifstream input;
-    input.open(filePath);
-
-    bool isSucess = true;
-    if ( input.is_open() ) {
-        for (unsigned int i = 0; i < m_rows; ++i) {
-            for (unsigned int j = 0; j < m_columns; ++j) {
-                if ( !(input >> m_elements[i][j]) ) {
-                    throw "exception in fill matrix";
-                }
-            }
-        }
-    }
-    else {
-        isSucess = false;
-    }
-
-    input.close();
-
-    return isSucess;
-}
-
-const int *Matrix::operator[](unsigned int index) const
+const int * Matrix::operator[](unsigned int index) const
 {
     if ( index >= m_rows ) {
         throw std::invalid_argument("index goes abroad");
@@ -99,7 +74,7 @@ const int *Matrix::operator[](unsigned int index) const
     return m_elements[index];
 }
 
-Matrix Matrix::operator *(const Matrix &matrix) const
+Matrix Matrix::operator*(const Matrix &matrix) const
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
 
@@ -127,7 +102,7 @@ Matrix Matrix::operator *(const Matrix &matrix) const
 }
 
 
-Matrix Matrix::operator +(const Matrix &matrix) const
+Matrix Matrix::operator+(const Matrix &matrix) const
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
 
@@ -168,15 +143,27 @@ bool Matrix::operator==(const Matrix &matrix) const
     return true;
 }
 
-void Matrix::show() const
+std::ostream & operator<<(std::ostream & output, const Matrix & matrix)
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+  for (unsigned int i = 0; i < matrix.m_rows; ++i) {
+    output << std::endl;
+      for (unsigned int j = 0; j < matrix.m_columns; ++j) {
+          output << matrix.m_elements[i][j] << "\t";
+      }
+  }
 
-    std::cout << m_rows << " * " << m_columns << std::endl;
-    for (unsigned int i = 0; i < m_rows; ++i) {
-        for (unsigned int j = 0; j < m_columns; ++j) {
-            std::cout << m_elements[i][j] << "\t";
-        }
-        std::cout << std::endl;
-    }
+  return output;
+}
+
+std::istream & operator>>(std::istream & input, Matrix & matrix)
+{
+  for (unsigned int i = 0; i < matrix.m_rows; ++i) {
+      for (unsigned int j = 0; j < matrix.m_columns; ++j) {
+          if ( !(input >> matrix.m_elements[i][j]) ) {
+              throw "exception in fill matrix";
+          }
+      }
+  }
+
+  return input;
 }
