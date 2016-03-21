@@ -7,10 +7,10 @@ template <typename T>
 class Matrix;
 
 template <class T>
-std::ostream & operator<<(std::ostream & output, const Matrix<T> & matrix);
+std::ostream & operator<<(std::ostream & output, const T &);
 
 template <class T>
-std::istream & operator>>(std::istream & output, Matrix<T> & matrix);
+std::istream & operator>>(std::istream & output, T &);
 
 template <typename T>
 class Matrix
@@ -27,8 +27,8 @@ public:
     auto operator==(const Matrix &matrix) const -> bool;
     auto operator=(const Matrix &matrix) -> Matrix &;
     
-    friend std::istream & operator>> <>(std::istream & input, Matrix<T> & matrix);
     friend std::ostream & operator<< <>(std::ostream & output, const Matrix<T> & matrix);
+    friend std::istream & operator>> <>(std::istream & input, Matrix<T> & matrix);
 private:
     unsigned int m_rows, m_columns;
     T **m_elements;
