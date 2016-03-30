@@ -68,7 +68,7 @@ void Matrix::InitFromRandom() {
 		for (int j = 0; j < columns; j++)
 			elements[i][j] = rand() % 90 + 10;
 }
-void Matrix::InitFromFile(char *filename) {
+void Matrix::InitFromFile(const char *filename) {
 	std::fstream file(filename);
 	for (int i = 0; i < lines; i++) {
 		for (int j = 0; j < columns; j++) {
