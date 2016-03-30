@@ -35,7 +35,7 @@ SCENARIO("Matrix +", "[addition]") {
 
 	Matrix result = A + B;
 	for (int i = 0; i < 3; i++){
-		for (j = 0; j < 3; j++){
+		for (int j = 0; j < 3; j++){
 			REQUIRE(result[i][j] == expected[i][j]);
 		}
 	}
