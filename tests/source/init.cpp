@@ -16,7 +16,6 @@ SCENARIO("Matrix init", "[init]") {
 		}
 	}
 }
-
 SCENARIO("Matrix InitFromFile", "[fill]") {
 	Matrix A(2, 2);
 	A.InitFromFile("A2x2.txt");
