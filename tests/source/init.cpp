@@ -17,12 +17,11 @@ SCENARIO("Matrix init", "[init]") {
 	}
 }
 SCENARIO("Matrix InitFromFile", "[fill]") {
-	Matrix A(2, 2);
-	A.InitFromFile("A2x2.txt");
+	Matrix C(3, 1);
+	A.InitFromFile("C3x1.txt");
 	REQUIRE( A[0][0] == 1 );
-	REQUIRE( A[0][1] == 1 );
-	REQUIRE( A[1][0] == 2 );
-	REQUIRE( A[1][1] == 2 );
+	REQUIRE( A[0][1] == 2 );
+	REQUIRE( A[0][2] == 0 );
 }
 SCENARIO("Matrix +", "[addition]") {
 	Matrix A(3, 3);
