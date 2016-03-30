@@ -40,14 +40,13 @@ SCENARIO("Matrix +", "[addition]") {
 		}
 	}
 }
-
 SCENARIO("Matrix *", "[multiplication]") {
 	Matrix A = Matrix(3, 3);
 	A.InitFromFile("A3x3.txt");
 	Matrix C = Matrix(3, 1);
 	C.InitFromFile("C3x1.txt");
 	Matrix expected = Matrix(3, 1);
-	expected.InitFrom("(A3x3)(C3x1).txt");
+	expected.InitFromFile("(A3x3)(C3x1).txt");
 
 	Matrix result = A * B;
 	for (int i = 0; i < 3; i++){
