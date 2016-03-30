@@ -48,8 +48,6 @@ SCENARIO("Matrix *", "[multiplication]") {
 
 	Matrix result = A * C;
 	for (int i = 0; i < 3; i++){
-		for (int j = 0; j < 3; j++){
-			REQUIRE(result[i][j] == expected[i][j]);
-		}
+		REQUIRE(result[i][0] == expected[i][0]);
 	}
 }
