@@ -40,16 +40,19 @@ SCENARIO("Matrix +", "[addition]") {
 		}
 	}
 }
-/*
-SCENARIO("Matrix *", "[multiplication]") {
-	Matrix<int> A = Matrix<int>(2, 2);
-	std::ifstream("A2x2.txt") >> A;
-	Matrix<int> B = Matrix<int>(2, 2);
-	std::ifstream("B2x2.txt") >> B;
-	Matrix<int> expected = Matrix<int>(2, 2);
-	std::ifstream("A*B2x2.txt") >> expected;
 
-	Matrix<int> result = A * B;
-	REQUIRE(result == expected);
+SCENARIO("Matrix *", "[multiplication]") {
+	Matrix A = Matrix(3, 3);
+	A.InitFromFile("A3x3.txt");
+	Matrix C = Matrix(3, 1);
+	C.InitFromFile("C3x1.txt");
+	Matrix expected = Matrix(3, 1);
+	expected.InitFrom("(A3x3)(C3x1).txt");
+
+	Matrix result = A * B;
+	for (int i = 0; i < 3; i++){
+		for (int j = 0; j < 3; j++){
+			REQUIRE(result[i][j] == expected[i][j]);
+		}
+	}
 }
-*/
