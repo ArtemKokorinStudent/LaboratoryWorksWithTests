@@ -17,7 +17,7 @@ SCENARIO("Matrix init", "[init]") {
 	}
 }
 
-SCENARIO("Matrix >>", "[fill]") {
+SCENARIO("Matrix InitFromFile", "[fill]") {
 	Matrix A(2, 2);
 	A.InitFromFile("A2x2.txt");
 	REQUIRE( A[0][0] == 1 );
