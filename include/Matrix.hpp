@@ -2,6 +2,7 @@
 #define Matrix_hpp
 
 #include <iostream>
+#include <fstream>
 
 class Matrix {
 public:
