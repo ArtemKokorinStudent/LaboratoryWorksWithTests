@@ -11,7 +11,7 @@ public:
 	Matrix(const Matrix& source_matrix);
 	Matrix& operator= (const Matrix& source_matrix);
 	void InitFromRandom();
-	void InitFromFile(char *filename);
+	void InitFromFile(const char *filename);
 	void Output() const;
 	int* operator[](int index) const;
 	Matrix operator+(const Matrix& right_matrix) const; 
