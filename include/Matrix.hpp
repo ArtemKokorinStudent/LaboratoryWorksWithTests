@@ -13,8 +13,8 @@ public:
 	void InitFromFile(char *filename);
 	void Output() const;
 	int* operator[](int index) const;
-	const Matrix operator+(const Matrix& right_matrix); 
-	const Matrix operator*(const Matrix& right_matrix); 
+	Matrix operator+(const Matrix& right_matrix) const; 
+	Matrix operator*(const Matrix& right_matrix) const; 
 	int GetNumberOfLines() const;
 	int GetNumberOfColumns() const;
 	~Matrix();
