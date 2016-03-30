@@ -2,7 +2,7 @@
 #include <catch.hpp>
 #include <fstream>
 
-SCENARIO("Matrix init", "[init]") {
+/*SCENARIO("Matrix init", "[init]") {
 
 	GIVEN("The number of rows and columns") {
 
@@ -55,3 +55,4 @@ SCENARIO("Matrix *", "[multiplication]") {
 	Matrix<int> result = A * B;
 	REQUIRE(result == expected);
 }
+*/
