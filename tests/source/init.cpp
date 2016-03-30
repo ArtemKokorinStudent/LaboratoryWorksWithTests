@@ -28,6 +28,17 @@ SCENARIO("Matrix Output", "[output]") {
 	A.InitFromRandom();
 	A.Output();
 }
+SCENARIO("Matrix =", "assignment") {
+	Matrix A(3, 3);
+	A.InitFromFile("A3x3.txt");
+	Matrix B(4, 2);
+	B = A;
+	for (int i = 0; i < 3; i++){
+		for (int j = 0; j < 3; j++){
+			REQUIRE( A[i][j] == B[i][j] );
+		}
+	}
+}
 SCENARIO("Matrix +", "[addition]") {
 	Matrix A(3, 3);
 	A.InitFromFile("A3x3.txt");
