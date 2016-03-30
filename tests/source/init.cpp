@@ -3,15 +3,15 @@
 #include <fstream>
 
 SCENARIO("Matrix init", "[init]") {
-	GIVEN("The number of rows and columns") {
-		auto rows = 36;
+	GIVEN("The number of lines and columns") {
+		auto lines = 36;
 		auto columns = 39;
 
 		WHEN("Create instansce of Matrix") {
-			Matrix matrix(rows, columns);
-			THEN("The number of rows and columns must be preserved") {
-				REQUIRE(matrix.rows() == rows);
-				REQUIRE(matrix.columns() == columns);
+			Matrix matrix(lines, columns);
+			THEN("The number of lines and columns must be preserved") {
+				REQUIRE(matrix.GetNumberOfLines() == lines);
+				REQUIRE(matrix.GetNumberOfColumns() == columns);
 			}
 		}
 	}
