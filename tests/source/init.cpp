@@ -20,8 +20,8 @@ SCENARIO("Matrix InitFromFile", "[fill]") {
 	Matrix C(3, 1);
 	C.InitFromFile("C3x1.txt");
 	REQUIRE( C[0][0] == 1 );
-	REQUIRE( C[0][1] == 2 );
-	REQUIRE( C[0][2] == 0 );
+	REQUIRE( C[1][0] == 2 );
+	REQUIRE( C[2][0] == 0 );
 }
 SCENARIO("Matrix +", "[addition]") {
 	Matrix A(3, 3);
