@@ -25,19 +25,18 @@ SCENARIO("Matrix >>", "[fill]") {
 	REQUIRE( A[1][0] == 2 );
 	REQUIRE( A[1][1] == 2 );
 }
-/*
 SCENARIO("Matrix +", "[addition]") {
-	Matrix<int> A = Matrix<int>(2, 2);
-	std::ifstream("A2x2.txt") >> A;
-	Matrix<int> B = Matrix<int>(2, 2);
-	std::ifstream("B2x2.txt") >> B;
-	Matrix<int> expected = Matrix<int>(2, 2);
-	std::ifstream("A+B2x2.txt") >> expected;
+	Matrix A(3, 3);
+	A.InitFromFile("A3x3.txt");
+	Matrix B(3, 3);
+	B.InitFromFile("B3x3.txt");
+	Matrix expected = Matrix(3, 3);
+	expected.InitFromFile("(A3x3)+(B3x3).txt");
 
-	Matrix<int> result = A + B;
+	Matrix result = A + B;
 	REQUIRE(result == expected);
 }
-
+/*
 SCENARIO("Matrix *", "[multiplication]") {
 	Matrix<int> A = Matrix<int>(2, 2);
 	std::ifstream("A2x2.txt") >> A;
