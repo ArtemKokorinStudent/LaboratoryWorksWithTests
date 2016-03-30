@@ -47,7 +47,7 @@ SCENARIO("Matrix *", "[multiplication]") {
 	Matrix expected = Matrix(3, 1);
 	expected.InitFromFile("(A3x3)(C3x1).txt");
 
-	Matrix result = A * B;
+	Matrix result = A * C;
 	for (int i = 0; i < 3; i++){
 		for (int j = 0; j < 3; j++){
 			REQUIRE(result[i][j] == expected[i][j]);
