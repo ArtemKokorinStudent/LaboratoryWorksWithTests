@@ -3,10 +3,7 @@
 
 #include <iostream>
 
-unsigned int Factorial( unsigned int number ) {
-  return number > 1 ? Factorial(number-1)*number : 1;
-}
-/*class Matrix {
+class Matrix {
 public:
 	Matrix() : lines(0), columns(0), elements(nullptr) {}
 	Matrix(int _lines, int _columns);
@@ -120,5 +117,5 @@ Matrix::~Matrix() {
 		delete[] elements[i];
 	delete[] elements;
 }
-*/
+
 #endif
