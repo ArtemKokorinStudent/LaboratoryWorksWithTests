@@ -23,6 +23,11 @@ SCENARIO("Matrix InitFromFile", "[fill]") {
 	REQUIRE( C[1][0] == 2 );
 	REQUIRE( C[2][0] == 0 );
 }
+SCENARIO("Matrix Output", "[output]") {
+	Matrix A(5, 4);
+	A.InitFromRandom();
+	A.Output();
+}
 SCENARIO("Matrix +", "[addition]") {
 	Matrix A(3, 3);
 	A.InitFromFile("A3x3.txt");
