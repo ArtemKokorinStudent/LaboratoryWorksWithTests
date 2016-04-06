@@ -44,7 +44,7 @@ SCENARIO("Matrix +", "[addition]") {
 	A.InitFromFile("A3x3.txt");
 	Matrix<int> B(3, 3);
 	B.InitFromFile("B3x3.txt");
-	Matrix<int> expected = Matrix(3, 3);
+	Matrix<int> expected = Matrix<int>(3, 3);
 	expected.InitFromFile("(A3x3)+(B3x3).txt");
 
 	Matrix<int> result = A + B;
@@ -55,11 +55,11 @@ SCENARIO("Matrix +", "[addition]") {
 	}
 }
 SCENARIO("Matrix *", "[multiplication]") {
-	Matrix<int> A = Matrix(3, 3);
+	Matrix<int> A = Matrix<int>(3, 3);
 	A.InitFromFile("A3x3.txt");
-	Matrix<int> C = Matrix(3, 1);
+	Matrix<int> C = Matrix<int>(3, 1);
 	C.InitFromFile("C3x1.txt");
-	Matrix<int> expected = Matrix(3, 1);
+	Matrix<int> expected = Matrix<int>(3, 1);
 	expected.InitFromFile("(A3x3)(C3x1).txt");
 
 	Matrix<int> result = A * C;
