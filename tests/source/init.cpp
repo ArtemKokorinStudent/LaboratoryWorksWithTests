@@ -8,7 +8,7 @@ SCENARIO("Matrix init", "[init]") {
 		auto columns = 39;
 
 		WHEN("Create instansce of Matrix") {
-			Matrix matrix(lines, columns);
+			Matrix<int> matrix(lines, columns);
 			THEN("The number of lines and columns must be preserved") {
 				REQUIRE(matrix.GetNumberOfLines() == lines);
 				REQUIRE(matrix.GetNumberOfColumns() == columns);
@@ -17,21 +17,21 @@ SCENARIO("Matrix init", "[init]") {
 	}
 }
 SCENARIO("Matrix InitFromFile", "[fill]") {
-	Matrix C(3, 1);
+	Matrix<int> C(3, 1);
 	C.InitFromFile("C3x1.txt");
 	REQUIRE( C[0][0] == 1 );
 	REQUIRE( C[1][0] == 2 );
 	REQUIRE( C[2][0] == 0 );
 }
 SCENARIO("Matrix Output", "[output]") {
-	Matrix A(5, 4);
+	Matrix<int> A(5, 4);
 	A.InitFromRandom();
 	A.Output();
 }
 SCENARIO("Matrix =", "assignment") {
-	Matrix A(3, 3);
+	Matrix<int> A(3, 3);
 	A.InitFromFile("A3x3.txt");
-	Matrix B(4, 2);
+	Matrix<int> B(4, 2);
 	B = A;
 	for (int i = 0; i < 3; i++){
 		for (int j = 0; j < 3; j++){
@@ -40,14 +40,14 @@ SCENARIO("Matrix =", "assignment") {
 	}
 }
 SCENARIO("Matrix +", "[addition]") {
-	Matrix A(3, 3);
+	Matrix<int> A(3, 3);
 	A.InitFromFile("A3x3.txt");
-	Matrix B(3, 3);
+	Matrix<int> B(3, 3);
 	B.InitFromFile("B3x3.txt");
-	Matrix expected = Matrix(3, 3);
+	Matrix<int> expected = Matrix(3, 3);
 	expected.InitFromFile("(A3x3)+(B3x3).txt");
 
-	Matrix result = A + B;
+	Matrix<int> result = A + B;
 	for (int i = 0; i < 3; i++){
 		for (int j = 0; j < 3; j++){
 			REQUIRE(result[i][j] == expected[i][j]);
@@ -55,14 +55,14 @@ SCENARIO("Matrix +", "[addition]") {
 	}
 }
 SCENARIO("Matrix *", "[multiplication]") {
-	Matrix A = Matrix(3, 3);
+	Matrix<int> A = Matrix(3, 3);
 	A.InitFromFile("A3x3.txt");
-	Matrix C = Matrix(3, 1);
+	Matrix<int> C = Matrix(3, 1);
 	C.InitFromFile("C3x1.txt");
-	Matrix expected = Matrix(3, 1);
+	Matrix<int> expected = Matrix(3, 1);
 	expected.InitFromFile("(A3x3)(C3x1).txt");
 
-	Matrix result = A * C;
+	Matrix<int> result = A * C;
 	for (int i = 0; i < 3; i++){
 		REQUIRE(result[i][0] == expected[i][0]);
 	}
