@@ -26,7 +26,7 @@ SCENARIO("Matrix InitFromFile", "[fill]") {
 SCENARIO("Matrix Output", "[output]") {
 	Matrix<int> A(5, 4);
 	A.InitFromRandom();
-	A.Output();
+	std::cout << A;
 }
 SCENARIO("Matrix =", "assignment") {
 	Matrix<int> A(3, 3);
