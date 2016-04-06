@@ -3,46 +3,61 @@
 
 #include <iostream>
 #include <fstream>
+/*template <typename MatrixT>
+class Matrix;
 
+template <typename MatrixT>
+std::ostream& operator<<(std::ostream&, const Matrix<MatrixT> &);*/
+
+template <typename MatrixT>
 class Matrix {
 public:
 	Matrix() : lines(0), columns(0), elements(nullptr) {}
-	Matrix(int _lines, int _columns);
-	Matrix(const Matrix& source_matrix);
+	Matrix(unsigned int _lines, unsigned int _columns);
+	Matrix(const Matrix<MatrixT>& source_matrix);
 	Matrix& operator= (const Matrix& source_matrix);
 	void InitFromRandom();
 	void InitFromFile(const char *filename);
-	void Output() const;
-	int* operator[](int index) const;
-	Matrix operator+(const Matrix& right_matrix) const; 
-	Matrix operator*(const Matrix& right_matrix) const; 
-	int GetNumberOfLines() const;
-	int GetNumberOfColumns() const;
+	template <typename MatrixT>
+	friend std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix);
+	template <typename MatrixT>
+	friend std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix);
+	MatrixT* operator[](unsigned int index) const;
+	Matrix<MatrixT> operator+(const Matrix<MatrixT>& right_matrix) const; 
+	Matrix<MatrixT> operator*(const Matrix<MatrixT>& right_matrix) const; 
+	unsigned int GetNumberOfLines() const;
+	unsigned int GetNumberOfColumns() const;
 	~Matrix();
 private:
-	int lines, columns, **elements;
+	MatrixT **elements;
+	unsigned int lines, columns;
 };
 
-Matrix::Matrix(int _lines, int _columns)  :
-	lines(_lines), columns(_columns), elements(new int*[_lines]) {
-	for (int i = 0; i < lines; i++) {
-		elements[i] = new int[columns];
-		for (int j = 0; j < columns; j++){
+template <typename MatrixT>
+Matrix<MatrixT>::Matrix(unsigned int _lines, unsigned int _columns)  :
+	lines(_lines), columns(_columns), elements(new MatrixT*[_lines]) {
+	for (unsigned int i = 0; i < lines; i++) {
+		elements[i] = new MatrixT[columns];
+		for (unsigned int j = 0; j < columns; j++){
 			elements[i][j] = 0;
 		}
 	}
 }
-Matrix::Matrix(const Matrix& source_matrix)
+
+template <typename MatrixT>
+Matrix<MatrixT>::Matrix(const Matrix<MatrixT>& source_matrix)
 	: lines(source_matrix.lines), columns(source_matrix.columns) {
-	elements = new int*[lines];
-	for (int i = 0; i < lines; i++) {
-		elements[i] = new int[columns];
-		for (int j  = 0; j < columns; j++) {
+	elements = new MatrixT*[lines];
+	for (unsigned int i = 0; i < lines; i++) {
+		elements[i] = new MatrixT[columns];
+		for (unsigned int j  = 0; j < columns; j++) {
 			elements[i][j] = source_matrix[i][j];
 		}
 	}
 }
-Matrix& Matrix::operator= (const Matrix& source_matrix) {
+
+template <typename MatrixT>
+Matrix<MatrixT>& Matrix<MatrixT>::operator= (const Matrix<MatrixT>& source_matrix) {
 	if (lines != source_matrix.lines || columns != source_matrix.columns) {
 		this -> ~Matrix();
 		lines = source_matrix.lines;
@@ -63,42 +78,73 @@ Matrix& Matrix::operator= (const Matrix& source_matrix) {
 	}
 	return *this;
 }
-void Matrix::InitFromRandom() {
-	for (int i = 0; i < lines; i++)
-		for (int j = 0; j < columns; j++)
-			elements[i][j] = rand() % 90 + 10;
+
+template <typename MatrixT>
+std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix){
+	for (unsigned int i = 0; i < matrix.lines; i++){
+		for (unsigned int j = 0; j < matrix.columns; j++){
+			stream >> matrix[i][j];
+		}
+	}
+	return stream;
 }
-void Matrix::InitFromFile(const char *filename) {
-	std::fstream file(filename);
-	for (int i = 0; i < lines; i++) {
-		for (int j = 0; j < columns; j++) {
-			file >> elements[i][j];
+
+template <typename MatrixT>
+std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix){
+	for (unsigned int i = 0; i < matrix.lines; i++){
+		for (unsigned int j = 0; j < matrix.columns; j++){
+			stream << matrix[i][j] << " ";
+		}
+		stream << '\n';
+	}
+	return stream;
+}
+
+template <typename MatrixT>
+void Matrix<MatrixT>::InitFromRandom() {
+	for (int i = 0; i < lines; i++){
+		for (int j = 0; j < columns; j++){
+			elements[i][j] = rand() % 90 + 10;
 		}
 	}
 }
-void Matrix::Output() const {
-	for (int i = 0; i < lines; i++) {
-		for (int j = 0; j < columns; j++)
-			std::cout << elements[i][j] << " ";
-		std::cout << "\n";
-	}
+
+template <typename MatrixT>
+void Matrix<MatrixT>::InitFromFile(const char *filename) {
+	std::fstream file(filename);
+	if (!file) throw "File cannot be opened";
+	file >> *this;
+	/*for (int i = 0; i < lines; i++) {
+		for (int j = 0; j < columns; j++) {
+			file >> elements[i][j];
+		}
+	}*/
 }
-int*  Matrix::operator[](int index) const {
+
+template <typename MatrixT>
+MatrixT* Matrix<MatrixT>::operator[](unsigned int index) const {
+	if (index >= lines) throw "index >= lines";
 	return elements[index];
 }
-Matrix Matrix::operator+(const Matrix& right_matrix) const {
+
+template <typename MatrixT>
+Matrix<MatrixT> Matrix<MatrixT>::operator+(const Matrix<MatrixT>& right_matrix) const {
 	if (columns != right_matrix.GetNumberOfColumns()
 		|| lines != right_matrix.GetNumberOfLines())
-		return *(new Matrix());
-	Matrix result(lines, columns);
-	for (int i = 0; i < lines; i++)
-		for (int j = 0; j < columns; j++)
+		throw "left_matrix.columns != right_matrix.columns || left_matrix.lines != right_matix.lines";
+	Matrix<MatrixT> result(lines, columns);
+	for (int i = 0; i < lines; i++){
+		for (int j = 0; j < columns; j++){
 			result[i][j] = elements[i][j] + right_matrix[i][j];
+		}
+	}
 	return result;
 }
-Matrix Matrix::operator*(const Matrix& right_matrix) const {
-	if (columns != right_matrix.lines) return *(new Matrix());
-	Matrix result(lines, right_matrix.columns);
+
+template <typename MatrixT>
+Matrix<MatrixT> Matrix<MatrixT>::operator*(const Matrix& right_matrix) const {
+	if (columns != right_matrix.lines) throw "left_matrix.columns != right_matrix.lines";
+	Matrix<MatrixT> result(lines, right_matrix.columns);
 	for (int i = 0; i < lines; i++)
 		for (int j = 0; j < right_matrix.columns; j++) {
 			result[i][j] = 0;
@@ -107,14 +153,20 @@ Matrix Matrix::operator*(const Matrix& right_matrix) const {
 		}
 	return result;
 }
-int Matrix::GetNumberOfLines() const {
+
+template <typename MatrixT>
+unsigned int Matrix<MatrixT>::GetNumberOfLines() const {
 	return lines;
 }
-int Matrix::GetNumberOfColumns() const {
+
+template <typename MatrixT>
+unsigned int Matrix<MatrixT>::GetNumberOfColumns() const {
 	return columns;
 }
-Matrix::~Matrix() {
-	for (int i = 0; i < lines; i++)
+
+template <typename MatrixT>
+Matrix<MatrixT>::~Matrix() {
+	for (unsigned int i = 0; i < lines; i++)
 		delete[] elements[i];
 	delete[] elements;
 }
