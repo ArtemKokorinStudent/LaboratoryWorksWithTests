@@ -18,10 +18,10 @@ public:
 	Matrix& operator= (const Matrix& source_matrix);
 	void InitFromRandom();
 	void InitFromFile(const char *filename);
-	template <typename MatrixT>
-	friend std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix);
-	template <typename MatrixT>
-	friend std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix);
+	template <typename T>
+	friend std::istream& operator>> (std::istream& stream, Matrix<T>& matrix);
+	template <typename T>
+	friend std::ostream& operator<< (std::ostream& stream, const Matrix<T>& matrix);
 	MatrixT* operator[](unsigned int index) const;
 	Matrix<MatrixT> operator+(const Matrix<MatrixT>& right_matrix) const; 
 	Matrix<MatrixT> operator*(const Matrix<MatrixT>& right_matrix) const; 
