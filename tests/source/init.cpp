@@ -67,3 +67,7 @@ SCENARIO("Matrix *", "[multiplication]") {
 		REQUIRE(result[i][0] == expected[i][0]);
 	}
 }
+SCENARIO("Matrix ==", "[comparsion]"){
+	
+ 
+}
