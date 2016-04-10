@@ -68,6 +68,11 @@ SCENARIO("Matrix *", "[multiplication]") {
 	}
 }
 SCENARIO("Matrix ==", "[comparsion]"){
+	Matrix<int> A = Matrix<int>(3, 3);
+	A.InitFromFile("A3x3.txt");
+	Matrix<int> C = Matrix<int>(3, 1);
+	C.InitFromFile("C3x1.txt");
 	
- 
+	REQUIRE(A != C);
+	REQUIRE(A == A);
 }
