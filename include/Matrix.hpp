@@ -95,7 +95,7 @@ std::ostream& operator<< (std::ostream& stream, const A& matrix) {
 		for (unsigned int j = 0; j < matrix.columns; j++) {
 			stream << matrix[i][j] << " ";
 		}
-		stream << '\n';
+		//stream << '\n';
 	}
 	return stream;
 }
