@@ -21,6 +21,7 @@ public:
 	Matrix<MatrixT> operator+(const Matrix<MatrixT>& right_matrix) const;
 	Matrix<MatrixT> operator*(const Matrix<MatrixT>& right_matrix) const;
 	bool operator==(const Matrix<MatrixT>& right_matrix) const;
+	bool operator!=(const Matrix<MatrixT>& right_matrix) const;
 	unsigned int GetNumberOfLines() const;
 	unsigned int GetNumberOfColumns() const;
 	~Matrix();
@@ -167,6 +168,12 @@ bool Matrix<MatrixT>::operator==(const Matrix<MatrixT>& right_matrix) const
 		}
 		return true;
 	}
+}
+
+template<typename MatrixT>
+bool Matrix<MatrixT>::operator!=(const Matrix<MatrixT>& right_matrix) const
+{
+	return !(operator==(right_matrix));
 }
 
 template <typename MatrixT>
