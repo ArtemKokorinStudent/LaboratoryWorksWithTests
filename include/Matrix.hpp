@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 
+template <typename A> std::istream& operator>> (std::istream& stream, A& matrix);
+
 template <typename MatrixT = int>
 class Matrix {
 public:
@@ -13,10 +15,8 @@ public:
 	Matrix& operator= (const Matrix& source_matrix);
 	void InitFromRandom();
 	void InitFromFile(const char *filename);
-	template <typename T>
-	friend std::istream& operator>> (std::istream& stream, Matrix<T>& matrix);
-	template <typename T>
-	friend std::ostream& operator<< (std::ostream& stream, const Matrix<T>& matrix);
+	friend std::istream& operator>> <>(std::istream& stream, Matrix<MatrixT>& matrix);
+	friend std::ostream& operator<< <>(std::ostream& stream, const Matrix<MatrixT>& matrix);
 	MatrixT* operator[](unsigned int index) const;
 	Matrix<MatrixT> operator+(const Matrix<MatrixT>& right_matrix) const;
 	Matrix<MatrixT> operator*(const Matrix<MatrixT>& right_matrix) const;
@@ -77,8 +77,8 @@ Matrix<MatrixT>& Matrix<MatrixT>::operator= (const Matrix<MatrixT>& source_matri
 	return *this;
 }
 
-template <typename MatrixT>
-std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix) {
+template <typename A>
+std::istream& operator>> (std::istream& stream, A& matrix) {
 	for (unsigned int i = 0; i < matrix.lines; i++) {
 		for (unsigned int j = 0; j < matrix.columns; j++) {
 			stream >> matrix[i][j];
