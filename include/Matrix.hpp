@@ -1,6 +1,6 @@
 #ifndef Matrix_hpp
 #define Matrix_hpp
-
+//https://msdn.microsoft.com/ru-ru/library/f1b2td24.aspx
 #include <iostream>
 #include <fstream>
 
