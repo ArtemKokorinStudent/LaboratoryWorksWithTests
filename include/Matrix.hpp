@@ -13,25 +13,10 @@ public:
 	Matrix& operator= (const Matrix& source_matrix);
 	void InitFromRandom();
 	void InitFromFile(const char *filename);
-	friend std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix) {
-		for (unsigned int i = 0; i < matrix.lines; i++) {
-			for (unsigned int j = 0; j < matrix.columns; j++) {
-				if (!(stream >> matrix[i][j])) {
-					throw "fill error";
-				}
-			}
-		}
-		return stream;
-	}
-	friend std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix) {
-		for (unsigned int i = 0; i < matrix.lines; i++) {
-			for (unsigned int j = 0; j < matrix.columns; j++) {
-				stream << matrix[i][j] << " ";
-			}
-			stream << '\n';
-		}
-		return stream;
-	}
+	template <class MatrixT>
+	friend std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix);
+	template <class MatrixT>
+	friend std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix);
 	MatrixT* operator[](unsigned int index) const;
 	Matrix<MatrixT> operator+(const Matrix<MatrixT>& right_matrix) const;
 	Matrix<MatrixT> operator*(const Matrix<MatrixT>& right_matrix) const;
@@ -45,6 +30,27 @@ private:
 	unsigned int lines, columns;
 };
 
+template <class MatrixT>
+std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix) {
+	for (unsigned int i = 0; i < matrix.lines; i++) {
+		for (unsigned int j = 0; j < matrix.columns; j++) {
+			if (!(stream >> matrix[i][j])) {
+				throw "fill error";
+			}
+		}
+	}
+	return stream;
+}
+template <class MatrixT>
+std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix) {
+	for (unsigned int i = 0; i < matrix.lines; i++) {
+		for (unsigned int j = 0; j < matrix.columns; j++) {
+			stream << matrix[i][j] << " ";
+		}
+		stream << '\n';
+	}
+	return stream;
+}
 template <typename MatrixT>
 Matrix<MatrixT>::Matrix(unsigned int _lines, unsigned int _columns) :
 	lines(_lines), columns(_columns), elements(new MatrixT*[_lines]) {
