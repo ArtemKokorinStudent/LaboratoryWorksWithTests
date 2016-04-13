@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 
-template <typename MatrixT = int>
+template <class MatrixT = int>
 class Matrix {
 public:
 	Matrix() : lines(0), columns(0), elements(nullptr) {}
@@ -13,10 +13,6 @@ public:
 	Matrix& operator= (const Matrix& source_matrix);
 	void InitFromRandom();
 	void InitFromFile(const char *filename);
-	template <class MatrixT>
-	friend std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix);
-	template <class MatrixT>
-	friend std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix);
 	MatrixT* operator[](unsigned int index) const;
 	Matrix<MatrixT> operator+(const Matrix<MatrixT>& right_matrix) const;
 	Matrix<MatrixT> operator*(const Matrix<MatrixT>& right_matrix) const;
@@ -25,6 +21,10 @@ public:
 	unsigned int GetNumberOfLines() const;
 	unsigned int GetNumberOfColumns() const;
 	~Matrix();
+	template <class MatrixT>
+	friend std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix);
+	template <class MatrixT>
+	friend std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix);
 private:
 	MatrixT **elements;
 	unsigned int lines, columns;
