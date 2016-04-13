@@ -4,9 +4,6 @@
 #include <iostream>
 #include <fstream>
 
-template <typename A> std::istream& operator>> (std::istream& stream, A& matrix);
-template <typename A> std::istream& operator<< (std::istream& stream, A& matrix);
-
 template <typename MatrixT = int>
 class Matrix {
 public:
