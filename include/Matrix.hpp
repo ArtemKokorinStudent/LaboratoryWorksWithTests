@@ -4,6 +4,10 @@
 #include <iostream>
 #include <fstream>
 
+template <class MatrixT> class Matrix;
+template <class MatrixT> std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix);
+template <class MatrixT> std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix);
+
 template <class MatrixT = int>
 class Matrix {
 public:
@@ -21,10 +25,10 @@ public:
 	unsigned int GetNumberOfLines() const;
 	unsigned int GetNumberOfColumns() const;
 	~Matrix();
-	template <class MatrixT>
-	friend std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix);
-	template <class MatrixT>
-	friend std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix);
+	//template <class MatrixT>
+	friend std::istream& operator>> <>(std::istream& stream, Matrix<MatrixT>& matrix);
+	//template <class MatrixT>
+	friend std::ostream& operator<< <>(std::ostream& stream, const Matrix<MatrixT>& matrix);
 private:
 	MatrixT **elements;
 	unsigned int lines, columns;
@@ -100,25 +104,25 @@ Matrix<MatrixT>& Matrix<MatrixT>::operator= (const Matrix<MatrixT>& source_matri
 
 /*template <typename A>
 std::istream& operator>> (std::istream& stream, A& matrix) {
-	for (unsigned int i = 0; i < matrix.lines; i++) {
-		for (unsigned int j = 0; j < matrix.columns; j++) {
-			if (!(stream >> matrix[i][j])) {
-				throw "fill error";
-			}
-		}
-	}
-	return stream;
+for (unsigned int i = 0; i < matrix.lines; i++) {
+for (unsigned int j = 0; j < matrix.columns; j++) {
+if (!(stream >> matrix[i][j])) {
+throw "fill error";
+}
+}
+}
+return stream;
 }
 
 template <typename A>
 std::ostream& operator<< (std::ostream& stream, const A& matrix) {
-	for (unsigned int i = 0; i < matrix.lines; i++) {
-		for (unsigned int j = 0; j < matrix.columns; j++) {
-			stream << matrix[i][j] << " ";
-		}
-		stream << '\n';
-	}
-	return stream;
+for (unsigned int i = 0; i < matrix.lines; i++) {
+for (unsigned int j = 0; j < matrix.columns; j++) {
+stream << matrix[i][j] << " ";
+}
+stream << '\n';
+}
+return stream;
 }*/
 
 template <typename MatrixT>
@@ -217,4 +221,5 @@ Matrix<MatrixT>::~Matrix() {
 }
 
 #endif
+
 
