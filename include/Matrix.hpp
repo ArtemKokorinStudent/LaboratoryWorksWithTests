@@ -3,6 +3,7 @@
 //https://msdn.microsoft.com/ru-ru/library/f1b2td24.aspx
 #include <iostream>
 #include <fstream>
+#include "MatrixException.hpp"
 
 template <class MatrixT> class Matrix;
 template <class MatrixT> std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix);
@@ -16,17 +17,17 @@ public:
 	Matrix(const Matrix<MatrixT>& source_matrix);
 	Matrix& operator= (const Matrix& source_matrix);
 	void InitFromRandom();
-	void InitFromFile(const char *filename);
-	MatrixT* operator[](unsigned int index) const;
-	Matrix<MatrixT> operator+(const Matrix<MatrixT>& right_matrix) const;
-	Matrix<MatrixT> operator*(const Matrix<MatrixT>& right_matrix) const;
+	void InitFromFile(const char *filename) throw (FileException);
+	MatrixT* operator[](unsigned int index) const throw (IndexException);
+	Matrix<MatrixT> operator+(const Matrix<MatrixT>& right_matrix) const throw (AddException);
+	Matrix<MatrixT> operator*(const Matrix<MatrixT>& right_matrix) const throw (MultiplyException);
 	bool operator==(const Matrix<MatrixT>& right_matrix) const;
 	bool operator!=(const Matrix<MatrixT>& right_matrix) const;
 	unsigned int GetNumberOfLines() const;
 	unsigned int GetNumberOfColumns() const;
 	~Matrix();
 	//template <class MatrixT>
-	friend std::istream& operator>> <>(std::istream& stream, Matrix<MatrixT>& matrix);
+	friend std::istream& operator>> <>(std::istream& stream, Matrix<MatrixT>& matrix) throw (StreamException);
 	//template <class MatrixT>
 	friend std::ostream& operator<< <>(std::ostream& stream, const Matrix<MatrixT>& matrix);
 private:
@@ -35,11 +36,11 @@ private:
 };
 
 template <class MatrixT>
-std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix) {
+std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix) throw (StreamException){
 	for (unsigned int i = 0; i < matrix.lines; i++) {
 		for (unsigned int j = 0; j < matrix.columns; j++) {
 			if (!(stream >> matrix[i][j])) {
-				throw "fill error";
+				throw StreamException();
 			}
 		}
 	}
@@ -102,29 +103,6 @@ Matrix<MatrixT>& Matrix<MatrixT>::operator= (const Matrix<MatrixT>& source_matri
 	return *this;
 }
 
-/*template <typename A>
-std::istream& operator>> (std::istream& stream, A& matrix) {
-for (unsigned int i = 0; i < matrix.lines; i++) {
-for (unsigned int j = 0; j < matrix.columns; j++) {
-if (!(stream >> matrix[i][j])) {
-throw "fill error";
-}
-}
-}
-return stream;
-}
-
-template <typename A>
-std::ostream& operator<< (std::ostream& stream, const A& matrix) {
-for (unsigned int i = 0; i < matrix.lines; i++) {
-for (unsigned int j = 0; j < matrix.columns; j++) {
-stream << matrix[i][j] << " ";
-}
-stream << '\n';
-}
-return stream;
-}*/
-
 template <typename MatrixT>
 void Matrix<MatrixT>::InitFromRandom() {
 	for (int i = 0; i < lines; i++) {
@@ -135,28 +113,23 @@ void Matrix<MatrixT>::InitFromRandom() {
 }
 
 template <typename MatrixT>
-void Matrix<MatrixT>::InitFromFile(const char *filename) {
+void Matrix<MatrixT>::InitFromFile(const char *filename) throw (FileException){
 	std::fstream file(filename);
-	if (!file) throw "File cannot be opened";
+	if (!file) throw FileException();
 	file >> *this;
-	/*for (int i = 0; i < lines; i++) {
-	for (int j = 0; j < columns; j++) {
-	file >> elements[i][j];
-	}
-	}*/
 }
 
 template <typename MatrixT>
-MatrixT* Matrix<MatrixT>::operator[](unsigned int index) const {
-	if (index >= lines) throw "index >= lines";
+MatrixT* Matrix<MatrixT>::operator[](unsigned int index) const throw (IndexException){
+	if (index >= lines) throw IndexException();
 	return elements[index];
 }
 
 template <typename MatrixT>
-Matrix<MatrixT> Matrix<MatrixT>::operator+(const Matrix<MatrixT>& right_matrix) const {
+Matrix<MatrixT> Matrix<MatrixT>::operator+(const Matrix<MatrixT>& right_matrix) const throw (AddException){
 	if (columns != right_matrix.GetNumberOfColumns()
 		|| lines != right_matrix.GetNumberOfLines())
-		throw "left_matrix.columns != right_matrix.columns || left_matrix.lines != right_matix.lines";
+		throw AddException();
 	Matrix<MatrixT> result(lines, columns);
 	for (int i = 0; i < lines; i++) {
 		for (int j = 0; j < columns; j++) {
@@ -167,15 +140,16 @@ Matrix<MatrixT> Matrix<MatrixT>::operator+(const Matrix<MatrixT>& right_matrix) 
 }
 
 template <typename MatrixT>
-Matrix<MatrixT> Matrix<MatrixT>::operator*(const Matrix& right_matrix) const {
-	if (columns != right_matrix.lines) throw "left_matrix.columns != right_matrix.lines";
+Matrix<MatrixT> Matrix<MatrixT>::operator*(const Matrix& right_matrix) const throw (MultiplyException) {
+	if (columns != right_matrix.lines) throw MultiplyException();
 	Matrix<MatrixT> result(lines, right_matrix.columns);
-	for (int i = 0; i < lines; i++)
+	for (int i = 0; i < lines; i++) {
 		for (int j = 0; j < right_matrix.columns; j++) {
 			result[i][j] = 0;
 			for (int k = 0; k < right_matrix.lines; k++)
 				result[i][j] += elements[i][k] * right_matrix[k][j];
 		}
+	}
 	return result;
 }
 
