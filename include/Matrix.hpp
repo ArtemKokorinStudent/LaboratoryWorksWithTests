@@ -6,7 +6,7 @@
 #include "MatrixException.hpp"
 
 template <class MatrixT> class Matrix;
-template <class MatrixT> std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix);
+template <class MatrixT> std::istream& operator>> (std::istream& stream, Matrix<MatrixT>& matrix) throw (StreamException);
 template <class MatrixT> std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix);
 
 template <class MatrixT = int>
