@@ -16,16 +16,7 @@ SCENARIO("Matrix init", "[init]") {
 		}
 	}
 }
-SCENARIO("Bad matrix InitFromFile", "[fill]") {
-	Matrix<int> C(3, 1);
-	bool exception_flag = false;
-	try{
-		C.InitFromFile("NotAFile");
-	} catch (...){
-		exception_flag = true;
-	}
-	REQUIRE(exception_flag);
-}
+
 SCENARIO("Matrix InitFromFile", "[fill]") {
 	Matrix<int> C(3, 1);
 	C.InitFromFile("C3x1.txt");
@@ -85,4 +76,24 @@ SCENARIO("Matrix ==", "[comparsion]"){
 	
 	REQUIRE(A != C);
 	REQUIRE(A == A);
+}
+SCENARIO("Bad matrix InitFromFile", "[fill]") {
+	Matrix<int> C(3, 1);
+	bool exception_flag = false;
+	try{
+		C.InitFromFile("NotAFile");
+	} catch (...){
+		exception_flag = true;
+	}
+	REQUIRE(exception_flag);
+}
+SCENARIO("Bad []", "[]") {
+	Matrix<int> C(3, 1);
+	bool exception_flag = false;
+	try{
+		C[1000];
+	} catch (...){
+		exception_flag = true;
+	}
+	REQUIRE(exception_flag);
 }
