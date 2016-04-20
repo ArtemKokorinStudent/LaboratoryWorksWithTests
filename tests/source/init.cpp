@@ -77,6 +77,42 @@ SCENARIO("Matrix ==", "[comparsion]"){
 	REQUIRE(A != C);
 	REQUIRE(A == A);
 }
+SCENARIO("Bad Matrix *", "[+]") {
+	Matrix<int> A = Matrix<int>(3, 3);
+	A.InitFromFile("A3x3.txt");
+	Matrix<int> C = Matrix<int>(3, 1);
+	C.InitFromFile("C3x1.txt");
+	bool exception_flag = false;
+	try{
+		C * A;
+	} catch (...){
+		exception_flag = true;
+	}
+	REQUIRE(exception_flag);
+}
+SCENARIO("Bad Matrix +", "[+]") {
+	Matrix<int> A = Matrix<int>(3, 3);
+	A.InitFromFile("A3x3.txt");
+	Matrix<int> C = Matrix<int>(3, 1);
+	C.InitFromFile("C3x1.txt");
+	bool exception_flag = false;
+	try{
+		A + C;
+	} catch (...){
+		exception_flag = true;
+	}
+	REQUIRE(exception_flag);
+}
+SCENARIO("Bad >>", "[operator>>]"){
+	Matrix<int> C(4, 5);
+	bool exception_flag = false;
+	try{
+		C.InitFromFile("A3x3.txt");
+	} catch (...){
+		exception_flag = true;
+	}
+	REQUIRE(exception_flag);
+}
 SCENARIO("Bad matrix InitFromFile", "[fill]") {
 	Matrix<int> C(3, 1);
 	bool exception_flag = false;
