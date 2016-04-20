@@ -16,14 +16,17 @@ SCENARIO("Matrix init", "[init]") {
 		}
 	}
 }
-SCENARIO("Matrix InitFromFile", "[fill]") {
-	Matrix<int> C(3, 1);
-	C.InitFromFile("C3x1.txt");
-	REQUIRE( C[0][0] == 1 );
-	REQUIRE( C[1][0] == 2 );
-	REQUIRE( C[2][0] == 0 );
-}
 SCENARIO("Bad matrix InitFromFile", "[fill]") {
+	Matrix<int> C(3, 1);
+	bool exception_flag = false;
+	try{
+		C.InitFromFile("NotAFile");
+	} catch (...){
+		exception_flag = true;
+	}
+	REQUIRE(exception_flag);
+}
+SCENARIO("Matrix InitFromFile", "[fill]") {
 	Matrix<int> C(3, 1);
 	C.InitFromFile("C3x1.txt");
 	REQUIRE( C[0][0] == 1 );
