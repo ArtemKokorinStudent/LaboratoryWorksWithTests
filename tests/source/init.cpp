@@ -77,7 +77,7 @@ SCENARIO("Matrix ==", "[comparsion]"){
 	REQUIRE(A != C);
 	REQUIRE(A == A);
 }
-SCENARIO("Bad Matrix *", "[+]") {
+SCENARIO("Bad Matrix *", "[badmultiplication]") {
 	Matrix<int> A = Matrix<int>(3, 3);
 	A.InitFromFile("A3x3.txt");
 	Matrix<int> C = Matrix<int>(3, 1);
@@ -90,7 +90,7 @@ SCENARIO("Bad Matrix *", "[+]") {
 	}
 	REQUIRE(exception_flag);
 }
-SCENARIO("Bad Matrix +", "[+]") {
+SCENARIO("Bad Matrix +", "[badplus") {
 	Matrix<int> A = Matrix<int>(3, 3);
 	A.InitFromFile("A3x3.txt");
 	Matrix<int> C = Matrix<int>(3, 1);
@@ -103,7 +103,7 @@ SCENARIO("Bad Matrix +", "[+]") {
 	}
 	REQUIRE(exception_flag);
 }
-SCENARIO("Bad >>", "[operator>>]"){
+SCENARIO("Bad >>", "[badfill]"){
 	Matrix<int> C(4, 5);
 	bool exception_flag = false;
 	try{
@@ -123,7 +123,7 @@ SCENARIO("Bad matrix InitFromFile", "[fill]") {
 	}
 	REQUIRE(exception_flag);
 }
-SCENARIO("Bad []", "[]") {
+SCENARIO("Bad []", "[badindex]") {
 	Matrix<int> C(3, 1);
 	bool exception_flag = false;
 	try{
