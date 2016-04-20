@@ -23,6 +23,13 @@ SCENARIO("Matrix InitFromFile", "[fill]") {
 	REQUIRE( C[1][0] == 2 );
 	REQUIRE( C[2][0] == 0 );
 }
+SCENARIO("Bad matrix InitFromFile", "[fill]") {
+	Matrix<int> C(3, 1);
+	C.InitFromFile("C3x1.txt");
+	REQUIRE( C[0][0] == 1 );
+	REQUIRE( C[1][0] == 2 );
+	REQUIRE( C[2][0] == 0 );
+}
 SCENARIO("Matrix Output", "[output]") {
 	Matrix<int> A(5, 4);
 	A.InitFromRandom();
