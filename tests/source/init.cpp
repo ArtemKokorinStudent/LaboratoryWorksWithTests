@@ -108,7 +108,7 @@ SCENARIO("Bad >>", "[badfill]"){
 	Matrix<int> C(4, 5);
 	bool exception_flag = false;
 	try{
-		C.InitFromFile("A3x3.txt");
+		C.InitFromFile("A8x3.txt");
 	} catch (...){
 		exception_flag = true;
 	}
