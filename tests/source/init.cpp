@@ -103,7 +103,7 @@ SCENARIO("Bad Matrix +", "[badplus") {
 	}
 	REQUIRE(exception_flag);
 }
-SCENARIO("Bad >>", "[badfill]"){
+SCENARIO("Bad matrix InitFromFile", "[fill]"){
 	std::cout << "Bad >>";
 	Matrix<int> C(4, 5);
 	bool exception_flag = false;
@@ -114,16 +114,7 @@ SCENARIO("Bad >>", "[badfill]"){
 	}
 	REQUIRE(exception_flag);
 }
-/*SCENARIO("Bad matrix InitFromFile", "[fill]") {
-	Matrix<int> C(3, 1);
-	bool exception_flag = false;
-	try{
-		C.InitFromFile("NotAFile");
-	} catch (...){
-		exception_flag = true;
-	}
-	REQUIRE(exception_flag);
-}
+
 SCENARIO("Bad []", "[badindex]") {
 	Matrix<int> C(3, 1);
 	bool exception_flag = false;
@@ -134,4 +125,4 @@ SCENARIO("Bad []", "[badindex]") {
 	}
 	REQUIRE(exception_flag);
 }
-*/
+
