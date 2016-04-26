@@ -103,7 +103,7 @@ SCENARIO("Bad Matrix +", "[badplus") {
 	}
 	REQUIRE(exception_flag);
 }
-/*SCENARIO("Bad >>", "[badfill]"){
+SCENARIO("Bad >>", "[badfill]"){
 	std::cout << "Bad >>";
 	Matrix<int> C(4, 5);
 	bool exception_flag = false;
@@ -114,7 +114,7 @@ SCENARIO("Bad Matrix +", "[badplus") {
 	}
 	REQUIRE(exception_flag);
 }
-SCENARIO("Bad matrix InitFromFile", "[fill]") {
+/*SCENARIO("Bad matrix InitFromFile", "[fill]") {
 	Matrix<int> C(3, 1);
 	bool exception_flag = false;
 	try{
