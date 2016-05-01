@@ -10,7 +10,7 @@ SCENARIO("BinarySearchTree init", "[init]") {
 		}
 	}
 }
-SCENARIO("BinarySearchTree init", "[init]") {
+SCENARIO("BinarySearchTree file init", "[file init]") {
 	GIVEN("File name"){
 		WHEN("Create instansce of BinarySearchTree from file") {
 			BinarySearchTree<int> tree;
