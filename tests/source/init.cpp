@@ -10,3 +10,14 @@ SCENARIO("BinarySearchTree init", "[init]") {
 		}
 	}
 }
+SCENARIO("BinarySearchTree init", "[init]") {
+	GIVEN("File name"){
+		WHEN("Create instansce of BinarySearchTree from file") {
+			BinarySearchTree<int> tree;
+			tree.FileFill("input_tree");
+			THEN("Nothing breaks") {
+				REQUIRE(true);
+			}
+		}
+	}
+}
