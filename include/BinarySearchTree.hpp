@@ -21,23 +21,27 @@ public:
 	
 	void FileFill(const char *filename) throw (FileException, FileEndException);
 	void InsertElement(DataT _data);
-	auto SearchElement(DataT _data) const;
+	TreeElement<DataT>* SearchElement(DataT _data) const;
 	void Output(std::ostream &stream = std::cout) const { root->OutputSubtree(stream); }
 	friend std::istream& operator>> <>(std::istream &stream, BinarySearchTree<DataT> &tree);
 private:
 	TreeElement<DataT> *root;
-	TreeElement<DataT>* FindParent(DataT _data) const;
+	TreeElement<DataT> * FindParent(DataT _data) const;
 	void Fill(std::istream & stream);
 };
-template <class DataT> TreeElement<DataT>* BinarySearchTree<DataT>::FindParent(DataT _data) const {
+template <class DataT> TreeElement<DataT> * BinarySearchTree<DataT>::FindParent(DataT _data) const {
 	TreeElement<DataT> *iterator = root;
 	while (iterator != nullptr) {
 		if (_data < iterator->data) {
-			if (iterator->left_children == nullptr) return iterator;
+			if (iterator->left_children == nullptr) {
+				break;
+			}
 			iterator = iterator->left_children;
 		}
 		else {
-			if (iterator->right_children == nullptr) return iterator;
+			if (iterator->right_children == nullptr) {
+				break;
+			}
 			iterator = iterator->right_children;
 		}
 	}
@@ -70,7 +74,7 @@ template <class DataT> void BinarySearchTree<DataT>::InsertElement(DataT _data) 
 		else parent_of_new_element->right_children = new_element;
 	}
 }
-template <class DataT> auto BinarySearchTree<DataT>::SearchElement(DataT _data) const  {
+template <class DataT> TreeElement<DataT>* BinarySearchTree<DataT>::SearchElement(DataT _data) const  {
 	TreeElement<DataT> *iterator = root;
 	while (iterator != nullptr) {
 		if (iterator->data == _data) return iterator;
