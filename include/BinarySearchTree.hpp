@@ -57,8 +57,7 @@ template <class DataT> void BinarySearchTree<DataT>::Fill(std::istream & stream)
 		else throw FileEndException();
 	}
 }
-template <class DataT> void BinarySearchTree<DataT>::FileFill(const char *filename)
-{
+template <class DataT> void BinarySearchTree<DataT>::FileFill(const char *filename) throw (FileException, FileEndException){
 	std::fstream stream(filename);
 	Fill(stream);
 }
