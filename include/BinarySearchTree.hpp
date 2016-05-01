@@ -27,7 +27,7 @@ public:
 private:
 	TreeElement<DataT> *root;
 	TreeElement<DataT> * FindParent(DataT _data) const;
-	void Fill(std::istream & stream);
+	void Fill(std::istream & stream) throw (FileException);
 };
 template <class DataT> TreeElement<DataT> * BinarySearchTree<DataT>::FindParent(DataT _data) const {
 	TreeElement<DataT> *iterator = root;
