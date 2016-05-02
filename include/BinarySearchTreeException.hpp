@@ -8,9 +8,9 @@ public:
 	BinarySearchTreeException() : std::exception(invalid_argument("Unknown exception")) {}
 	BinarySearchTreeException(const char *_message) : std::exception(invalid_argument(_message)) {}
 };
-class FileException : public BinarySearchTreeException {
+class FileOpenException : public BinarySearchTreeException {
 public:
-	FileException() : BinarySearchTreeException("File cannot be opened") {};
+	FileOpenException() : BinarySearchTreeException("File cannot be opened") {};
 };
 class FileEndException : public BinarySearchTreeException {
 public:
