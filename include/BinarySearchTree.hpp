@@ -13,13 +13,26 @@ template <class DataT> std::ostream& operator<< (std::ostream &stream, const Bin
 	tree.Output();
 	return stream;
 }
-
+class AddFileIO {
+	virtual void Fill(std::istream & stream) throw (FileOpenException) = 0;
+	virtual void Output(std::ostream &stream = std::cout) const = 0;
+public:
+	void FileFill(const char *filename) throw (FileOpenException) {
+		std::fstream stream(filename);
+		if (!stream) throw FileOpenException();
+		Fill(stream);
+	}
+	void FileOut(const char *filename) throw (FileOpenException) {
+		std::fstream stream(filename);
+		if (!stream) throw FileOpenException();
+		Output(stream);
+	}
+};
 template<class DataT>
-class BinarySearchTree {
+class BinarySearchTree : public AddFileIO {
 public:
 	BinarySearchTree() : root(nullptr) {};
-	
-	void FileFill(const char *filename) throw (FileException, FileEndException);
+	//void FileFill(const char *filename) throw (FileOpenException, FileEndException);
 	void InsertElement(DataT _data);
 	TreeElement<DataT>* SearchElement(DataT _data) const;
 	void Output(std::ostream &stream = std::cout) const { root->OutputSubtree(stream); }
@@ -27,7 +40,7 @@ public:
 private:
 	TreeElement<DataT> *root;
 	TreeElement<DataT> * FindParent(DataT _data) const;
-	void Fill(std::istream & stream) throw (FileException);
+	void Fill(std::istream & stream) throw (FileOpenException);
 };
 template <class DataT> TreeElement<DataT> * BinarySearchTree<DataT>::FindParent(DataT _data) const {
 	TreeElement<DataT> *iterator = root;
@@ -47,9 +60,9 @@ template <class DataT> TreeElement<DataT> * BinarySearchTree<DataT>::FindParent(
 	}
 	return iterator;
 }
-template <class DataT> void BinarySearchTree<DataT>::Fill(std::istream & stream) throw (FileException) {
+template <class DataT> void BinarySearchTree<DataT>::Fill(std::istream & stream) throw (FileOpenException) {
 	int input_length;
-	if (!(stream >> input_length)) throw FileException();
+	if (!(stream >> input_length)) throw FileOpenException();
 
 	DataT temp;
 	for (int i = 0; i < input_length; i++) {
@@ -57,10 +70,10 @@ template <class DataT> void BinarySearchTree<DataT>::Fill(std::istream & stream)
 		else throw FileEndException();
 	}
 }
-template <class DataT> void BinarySearchTree<DataT>::FileFill(const char *filename) throw (FileException, FileEndException){
+/*template <class DataT> void BinarySearchTree<DataT>::FileFill(const char *filename) throw (FileOpenException, FileEndException){
 	std::fstream stream(filename);
 	Fill(stream);
-}
+}*/
 template <class DataT> void BinarySearchTree<DataT>::InsertElement(DataT _data) {
 	TreeElement<DataT> *new_element = new TreeElement<DataT>(_data);
 	if (root == nullptr) {
