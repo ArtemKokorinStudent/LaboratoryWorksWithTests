@@ -33,3 +33,23 @@ SCENARIO("FileOutput", "[file output]") {
 		}
 	}
 }
+SCENARIO("Add", "[add]"){
+	BinarySearchTree<int> tree;
+	for (int i = 0; i < 5; i++){
+		tree.add(4);
+	}
+	REQUIRE(true);
+}
+SCENARIO("Search", "[search]") {
+	BinarySearchTree<int> tree;
+	tree.add(3);
+	REQUIRE(tree.search(3));
+	REQUIRE(!tree.search(2));
+}
+
+SCENARIO("FileSearch","[file search]"){
+	BinarySearchTree<int> tree;
+	tree.FileFill("input_tree");
+	REQUIRE(tree.search(98));
+	REQUIRE(!tree.search(97));
+}
