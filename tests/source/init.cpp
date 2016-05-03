@@ -21,3 +21,15 @@ SCENARIO("BinarySearchTree file init", "[file init]") {
 		}
 	}
 }
+SCENARIO("FileOutput", "[file output]") {
+	GIVEN("File name"){
+		WHEN("Output in file") {
+			BinarySearchTree<int> tree;
+			tree.FileFill("input_tree");
+			tree.FileOut("output");
+			THEN("Nothing breaks") {
+				REQUIRE(true);
+			}
+		}
+	}
+}
