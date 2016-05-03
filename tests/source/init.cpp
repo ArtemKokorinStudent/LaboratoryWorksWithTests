@@ -36,20 +36,20 @@ SCENARIO("FileOutput", "[file output]") {
 SCENARIO("Add", "[add]"){
 	BinarySearchTree<int> tree;
 	for (int i = 0; i < 5; i++){
-		tree.add(4);
+		tree.InsertElement(4);
 	}
 	REQUIRE(true);
 }
 SCENARIO("Search", "[search]") {
 	BinarySearchTree<int> tree;
-	tree.add(3);
-	REQUIRE(tree.search(3));
-	REQUIRE(!tree.search(2));
+	tree.InsertElement(3);
+	REQUIRE(tree.SearchElement(3));
+	REQUIRE(!tree.SearchElement(2));
 }
 
 SCENARIO("FileSearch","[file search]"){
 	BinarySearchTree<int> tree;
 	tree.FileFill("input_tree");
-	REQUIRE(tree.search(98));
-	REQUIRE(!tree.search(97));
+	REQUIRE(tree.SearchElement(98));
+	REQUIRE(!tree.SearchElement(97));
 }
