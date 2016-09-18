@@ -23,6 +23,7 @@ stack<T>::stack(const stack & _stack)
 	std::copy(_stack.array_, _stack.array_ + _stack.count_, array_);
 }
 
+
 template<typename T>
 stack<T>& stack<T>::operator=(const stack & _stack) {
 	if (this == &_stack) {
