@@ -1,4 +1,3 @@
-
 template <typename T>
 class stack
 {
@@ -21,9 +20,7 @@ template<typename T>
 stack<T>::stack(const stack & _stack)
 	: array_(new T[_stack.array_size_]),
 	array_size_(_stack.array_size_), count_(_stack.count_) {
-	for (size_t i = 0; i < count_; i++) {
-		array_[i] = _stack.array_[i];
-	}
+	std::copy(_stack.array_, _stack.array_ + _stack.count_, array_);
 }
 
 template<typename T>
@@ -36,12 +33,11 @@ stack<T>& stack<T>::operator=(const stack & _stack) {
 		array_ = new T[_stack.array_size_];
 		array_size_ = _stack.array_size_;
 	}
-	for (size_t i = 0; i < _stack.count_; i++) {
-		array_[i] = _stack.array_[i];
-	}
+	std::copy(_stack.array_, _stack.array_ + _stack.count_, array_);
 	count_ = _stack.count_;
 	return *this;
 }
+
 template<typename T>
 size_t stack<T>::count() const
 {
@@ -79,10 +75,7 @@ stack<T>::~stack()
 template<typename T>
 void stack<T>::rereserve(size_t new_size, size_t n_elements_to_copy) {
 	T* new_array = new T[new_size];
-
-	for (size_t i = 0; i < n_elements_to_copy; i++) {
-		new_array[i] = array_[i];
-	}
+	std::copy(array_, array_ + count_, new_array);
 	delete[] array_;
 	array_ = new_array;
 	array_size_ = new_size;
