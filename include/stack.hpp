@@ -14,15 +14,15 @@ private:
 	size_t array_size_;
 	size_t count_;
 	void rereserve(size_t new_size, size_t n_elements_to_copy);
+	T* newCopiedArray(const T* source, size_t source_size, size_t destination_size);
 };
 
 template<typename T>
 stack<T>::stack(const stack & _stack)
-	: array_(new T[_stack.array_size_]),
+	: array_(newCopiedArray(_stack.array_, _stack.count_, _stack.array_size_)),
 	array_size_(_stack.array_size_), count_(_stack.count_) {
-	std::copy(_stack.array_, _stack.array_ + _stack.count_, array_);
+	;
 }
-
 
 template<typename T>
 stack<T>& stack<T>::operator=(const stack & _stack) {
@@ -75,9 +75,16 @@ stack<T>::~stack()
 
 template<typename T>
 void stack<T>::rereserve(size_t new_size, size_t n_elements_to_copy) {
-	T* new_array = new T[new_size];
-	std::copy(array_, array_ + count_, new_array);
+	T* new_array = newCopiedArray(array_, count_, new_size);
 	delete[] array_;
 	array_ = new_array;
 	array_size_ = new_size;
+}
+
+template<typename T>
+T* stack<T>::newCopiedArray(const T* source, size_t source_count, size_t destination_size)
+{
+	T* new_array = new T[destination_size];
+	std::copy(source, source + source_count, new_array);
+	return new_array;
 }
