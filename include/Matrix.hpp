@@ -13,7 +13,7 @@ template <class MatrixT = int>
 class Matrix {
 public:
 	Matrix() : lines(0), columns(0), elements(nullptr) {}
-	Matrix(unsigned int _lines, unsigned int _columns);
+	Matrix(size_t _lines, unsigned int _columns);
 	Matrix(const Matrix<MatrixT>& source_matrix);
 	Matrix& operator= (const Matrix& source_matrix);
 	void InitFromRandom();
