@@ -57,7 +57,7 @@ std::ostream& operator<< (std::ostream& stream, const Matrix<MatrixT>& matrix) {
 	return stream;
 }
 template <typename MatrixT>
-Matrix<MatrixT>::Matrix(unsigned int _lines, unsigned int _columns) :
+Matrix<MatrixT>::Matrix(size_t _lines, unsigned int _columns) :
 	lines(_lines), columns(_columns), elements(new MatrixT*[_lines]) {
 	for (unsigned int i = 0; i < lines; i++) {
 		elements[i] = new MatrixT[columns];
