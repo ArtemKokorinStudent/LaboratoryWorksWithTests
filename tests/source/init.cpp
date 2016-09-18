@@ -1,5 +1,5 @@
-#include <Matrix.hpp>
 #include <catch.hpp>
+#include <Matrix.hpp>
 #include <fstream>
 
 SCENARIO("Matrix init", "[init]") {
