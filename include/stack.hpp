@@ -1,5 +1,4 @@
-#ifndef stack_hpp
-#define stack_hpp
+
 template <typename T>
 class stack
 {
